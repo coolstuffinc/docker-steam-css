@@ -1,7 +1,7 @@
-FROM ubuntu:xenial
+FROM ubuntu:22.04
 
 RUN apt-get update && \
-    apt-get install -y wget lib32gcc1 lib32tinfo5 unzip nginx
+    apt-get install -y wget lib32gcc-s1 lib32tinfo6 unzip nginx
 
 RUN useradd -ms /bin/bash steam
 WORKDIR /home/steam
