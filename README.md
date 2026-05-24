@@ -11,7 +11,7 @@ The image build now downloads the bundled maps and plugin archives during `docke
 
 ## Asset branch workflow
 
-Bundled map and plugin binaries are stored on the `assets` branch (tip currently points to commit `ff7d5b2`).
+Bundled map and plugin binaries are stored on the `assets` branch (tip currently points to commit `ff7d5b25b8c09ed891af6959c6f8f596aaab6f82`).
 `assets/maps.txt` and `assets/mods.txt` in the main development branch remain the source manifests used by the Docker build.
 
 The Docker build uses `ASSET_REF` (default: `assets`) to fetch binary files:

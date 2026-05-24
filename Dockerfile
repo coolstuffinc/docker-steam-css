@@ -15,7 +15,8 @@ RUN wget -O /tmp/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/in
     tar -xvzf /tmp/steamcmd_linux.tar.gz && \
     rm /tmp/steamcmd_linux.tar.gz
 
-# Install CSS once to speed up container startup
+# Install CSS once to speed up container startup.
+# SteamCMD requires +force_install_dir before +login.
 RUN ./steamcmd.sh +force_install_dir /home/steam/css +login anonymous +app_update 232330 validate +quit
 
 COPY --chown=steam:steam assets/ /tmp/assets/
