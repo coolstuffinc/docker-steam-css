@@ -16,7 +16,7 @@ RUN wget -O /tmp/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/in
     rm /tmp/steamcmd_linux.tar.gz
 
 # Install CSS once to speed up container startup
-RUN ./steamcmd.sh +login anonymous +force_install_dir ./css +app_update 232330 validate +quit
+RUN ./steamcmd.sh +force_install_dir /home/steam/css +login anonymous +app_update 232330 validate +quit
 
 COPY --chown=steam:steam assets/ /tmp/assets/
 RUN mkdir -p /tmp/mods /tmp/maps && \
