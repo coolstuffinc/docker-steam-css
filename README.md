@@ -9,6 +9,27 @@ The Docker image in the Docker Hub can be found [here](https://hub.docker.com/r/
 
 The image build now downloads the bundled maps and plugin archives during `docker build`, which keeps the repository checkout much smaller while preserving the same runtime contents.
 
+## Asset branch workflow
+
+Bundled map and plugin binaries are stored on the `assets` branch.
+That branch was seeded from commit `ff7d5b25b8c09ed891af6959c6f8f596aaab6f82`, and is continuously updated as the authoritative source for the latest binary assets.
+`assets/maps.txt` and `assets/mods.txt` in the main development branch remain the source manifests used by the Docker build.
+
+The Docker build uses `ASSET_REF` (default: `assets`) to fetch binary files:
+
+```
+docker build --build-arg ASSET_REF=assets .
+```
+
+You can pin to a specific commit when needed:
+
+```
+docker build --build-arg ASSET_REF=<commit-sha> .
+```
+
+When adding or replacing binary assets, update the `assets` branch contents first, then update `assets/maps.txt` and `assets/mods.txt` in the development branch.
+`sv_downloadurl` is intentionally pinned to the `assets` branch so clients always fetch the latest published asset set.
+
 List of used plugins:
 - [metamod:source v1.10.6](http://www.metamodsource.net/downloads/)
 - [SourceMod v1.7.3-5275](http://www.sourcemod.net/downloads.php?branch=stable)

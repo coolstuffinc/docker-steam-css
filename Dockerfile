@@ -9,22 +9,23 @@ WORKDIR /home/steam
 
 USER steam
 
-ARG ASSET_COMMIT=ff7d5b25b8c09ed891af6959c6f8f596aaab6f82
+ARG ASSET_REF=assets
 
 RUN wget -O /tmp/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz && \
     tar -xvzf /tmp/steamcmd_linux.tar.gz && \
     rm /tmp/steamcmd_linux.tar.gz
 
-# Install CSS once to speed up container startup
-RUN ./steamcmd.sh +login anonymous +force_install_dir ./css +app_update 232330 validate +quit
+# Install CSS once to speed up container startup.
+# SteamCMD requires +force_install_dir before +login.
+RUN ./steamcmd.sh +force_install_dir /home/steam/css +login anonymous +app_update 232330 validate +quit
 
 COPY --chown=steam:steam assets/ /tmp/assets/
 RUN mkdir -p /tmp/mods /tmp/maps && \
     while read -r file; do \
-        wget -q -O "/tmp/mods/${file}" "https://raw.githubusercontent.com/coolstuffinc/docker-steam-css/${ASSET_COMMIT}/mods/${file}"; \
+        wget -q -O "/tmp/mods/${file}" "https://raw.githubusercontent.com/coolstuffinc/docker-steam-css/${ASSET_REF}/mods/${file}"; \
     done < /tmp/assets/mods.txt && \
     while read -r file; do \
-        wget -q -O "/tmp/maps/${file}" "https://raw.githubusercontent.com/coolstuffinc/docker-steam-css/${ASSET_COMMIT}/maps/${file}"; \
+        wget -q -O "/tmp/maps/${file}" "https://raw.githubusercontent.com/coolstuffinc/docker-steam-css/${ASSET_REF}/maps/${file}"; \
     done < /tmp/assets/maps.txt
 
 ENV CSS_HOSTNAME=""
