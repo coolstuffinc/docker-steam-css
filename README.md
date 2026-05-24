@@ -7,6 +7,8 @@ This docker image provides a preconfigured Counter-Strike Source server with sev
 
 The Docker image in the Docker Hub can be found [here](https://hub.docker.com/r/foxylion/steam-css/).
 
+The image build now downloads the bundled maps and plugin archives during `docker build`, which keeps the repository checkout much smaller while preserving the same runtime contents.
+
 List of used plugins:
 - [metamod:source v1.10.6](http://www.metamodsource.net/downloads/)
 - [SourceMod v1.7.3-5275](http://www.sourcemod.net/downloads.php?branch=stable)
